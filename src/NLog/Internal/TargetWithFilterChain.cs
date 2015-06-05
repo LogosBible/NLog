@@ -88,24 +88,7 @@ namespace NLog.Internal
 
         internal void PrecalculateStackTraceUsage()
         {
-            this.stackTraceUsage = StackTraceUsage.None;
-
-            // find all objects which may need stack trace
-            // and determine maximum
-            foreach (var item in ObjectGraphScanner.FindReachableObjects<IUsesStackTrace>(this))
-            {
-                var stu = item.StackTraceUsage;
-
-                if (stu > this.stackTraceUsage)
-                {
-                    this.stackTraceUsage = stu;
-
-                    if (this.stackTraceUsage >= StackTraceUsage.Max)
-                    {
-                        break;
-                    }
-                }
-            }
+			// Logos does not use stack trace and the reflection that occured by this method had a measurable impact on startup performance
         }
     }
 }
